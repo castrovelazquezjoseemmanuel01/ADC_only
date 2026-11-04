@@ -1,0 +1,12 @@
+Proyecto STM32F103C8 ADC1 PA1 -> USART1 -> RealTerm
+
+Abra sdk2027.uvprojx en Keil. Compile y programe la Blue Pill.
+PA1: entrada analogica 0 a VDDA (tipicamente 3.3 V). GND compartido.
+PA9 (USART1 TX) -> RX del adaptador USB-UART TTL 3.3 V.
+GND -> GND del adaptador. PA10 RX opcional -> TX del adaptador.
+NO conecte PA9 directamente a un puerto RS-232 de niveles +/-12 V.
+RealTerm: puerto COM correcto, 9600 baud, 8 bits, sin paridad, 1 stop, sin control de flujo, Display ASCII.
+La conversion de mV supone VDDA=3300 mV. Si VDDA difiere, ajuste 3300UL en main.c.
+El retardo delay_ms es aproximado. La ISR EXTI0 existente ejecuta parpadeos bloqueantes, por lo que puede interrumpir temporalmente el envio.
+El reloj de USART1 se calcula a partir de SystemCoreClock y el prescaler APB2; confirme que SystemCoreClock refleje el reloj real configurado por el startup/system_stm32f10x.
+No se ha compilado en Keil ni probado fisicamente con la placa.
